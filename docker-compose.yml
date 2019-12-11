@@ -1,0 +1,40 @@
+version: '3'
+
+
+services:
+    web:
+        depends_on: 
+            - db
+        build: .
+        volumes: 
+            - ./django:/project
+        ports:
+            - "80:8000"
+        command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn --bind 0.0.0.0:8000 webshop.wsgi"
+        #command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+
+    db:
+        image: postgres
+        environment:
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: mypass
+            POSTGRES_DB: movies
+        volumes:
+            - movies:/var/lib/postgresql/data
+
+    nodejs:
+        image: "retarf/nodejs"
+        #build: ./node
+        user: "node"
+        working_dir: /home/node/app
+        volumes:
+          - ./django:/home/node/app
+          - ./logs/node:/home/node/.npm/_logs
+            #expose:
+          #- "8081"
+        ports:
+          - "3000:3000"
+        command: "npm start"
+
+volumes:
+    movies:
