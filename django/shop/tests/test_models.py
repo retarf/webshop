@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Product
+from shop.models import Product
 
 class ProductTestCase(TestCase):
 
@@ -16,6 +16,6 @@ class ProductTestCase(TestCase):
     def test_product_description(self):
         product1 = Product.objects.get(name='TestProduct1')
         product2 = Product.objects.get(name='TestProduct2')
-        self.assertEqual(product1.description, 'description TestProduct1')
-        self.assertEqual(product2.description, 'description TestProduct2')
+        self.assertEqual(product1.description, 'Description TestProduct1')
+        self.assertEqual(product2.description, 'Description TestProduct2')
                 
