@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'api',
     'shop',
+    'product',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
